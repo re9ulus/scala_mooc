@@ -66,6 +66,7 @@ object FunSets {
     def forall(s: Set, p: Int => Boolean): Boolean = {
       def iter(a: Int): Boolean = {
         if (a>bound) true
+        else if (!contains(s, a)) iter(a+1)
         else if (!p(a)) false
         else iter(a+1)
       }
@@ -84,7 +85,8 @@ object FunSets {
    * Returns a set transformed by applying `f` to each element of `s`.
    */
     def map(s: Set, f: Int => Int): Set = {
-    (x: Int) => contains(s, f(x))
+//      (x: Int) => forall(s, (a: Int) => a == f(x))
+     (x: Int) => exists(s, (a: Int) => a == f(x))
     }
   
   /**
